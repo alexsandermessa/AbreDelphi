@@ -1,0 +1,8 @@
+Versão 18: Acrescentada a opção G - TestaDCComparaEstrutura
+Versão 19: Mostra se esta EM TESTE DTC
+Versão 20: 
+- Corrigido o caminho para a chamada do Suporte no servidor (De Core8 para FileServer)
+- Melhoria: Ao pressionar Shift + P o suporte já inicia com a tela de consulta de req. já aberta (Dica do Alex)
+Versão 21: Adicionada a Ferramenta Layout de Requições desenvolvida por Alexsander Messa
+Versão 22: Atualização da Ferramenta Layout de Requições
+
