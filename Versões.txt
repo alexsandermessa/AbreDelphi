@@ -5,4 +5,4 @@ Versão 20:
 - Melhoria: Ao pressionar Shift + P o suporte já inicia com a tela de consulta de req. já aberta (Dica do Alex)
 Versão 21: Adicionada a Ferramenta Layout de Requições desenvolvida por Alexsander Messa
 Versão 22: Atualização da Ferramenta Layout de Requições
-
+Teste
