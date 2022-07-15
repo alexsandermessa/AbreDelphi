@@ -47,7 +47,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     Margins.Left = 15
     Margins.Bottom = 5
     Align = alTop
-    Caption = 'R - Restaura Registro'
+    Caption = 'R - Restaura/Exporta Reg'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clLime
     Font.Height = -16

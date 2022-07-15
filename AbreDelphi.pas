@@ -118,6 +118,11 @@ type
     const cCaptionEmTesteDTC = 'Em Teste DTC: ';
     const cVariavelEmTesteDTC = 'EM_TESTE_DTC';
     const cValorVariavelEmTesteDTC = 'SIM';
+    const cArquivoRegistroEmbarcadero = 'G:\RegistroEmbarcadero\RegistroEmbarcadero.reg';
+    const cArquivoRegistroEmbarcaderoRenomear = 'G:\RegistroEmbarcadero\RegistroEmbarcadero_%s.reg';
+    const cRegistroEmbarcadero = '"HKEY_CURRENT_USER\Software\Embarcadero"';
+    const cRegistroRestaurarDepoisAbrirDelphi = 'C:\Users\%s\RegistrosRestaurarAposDelphi.reg';
+
 
     { Private declarations }
   public
@@ -139,6 +144,7 @@ procedure TFormAbreDelphiAmbientes.AbrirDelphi;
 var
   vArquivoBat: TStrings;
   vCaminhoAbreDelphi: string;
+  vCaminhoRegostroRestaurar: string;
 begin
   vArquivoBat := TStringList.Create;
 
@@ -147,12 +153,20 @@ begin
   if PressionouShift then
   begin
     if FMaquinaToller then
-      vArquivoBat.Add('call REGEDIT /s "G:\RegistroBDS_17.reg"')
+    begin
+      vArquivoBat.Add('@call REGEDIT /s "'+cArquivoRegistroEmbarcadero+'"');
+      vArquivoBat.Add('@call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi.bat');
+    end
     else
-      vArquivoBat.Add('call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi_SemProjetos.bat');
+      vArquivoBat.Add('@call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi_SemProjetos.bat');
   end
   else
-    vArquivoBat.Add('call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi.bat');
+    vArquivoBat.Add('@call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi.bat');
+
+  vCaminhoRegostroRestaurar := Format(cRegistroRestaurarDepoisAbrirDelphi, [TSystemUtils.NomeUsuario]);
+
+  if FileExists(vCaminhoRegostroRestaurar) then
+    vArquivoBat.Add('call REGEDIT /s "'+vCaminhoRegostroRestaurar+'"');
 
   vCaminhoAbreDelphi := RetornaCaminhoBat(cArquivoAbreDelphi);
 
@@ -544,6 +558,7 @@ var
   vCaminhoBinExecutar: PWideChar;
   vCaminhoAnsi: PAnsiChar;
   vFormLayoutRequisicoes: TFormPrincipal;
+  vDataHoraRegistroSalvo: string;
 const
   cOperacao = 'open';
 begin
@@ -574,7 +589,23 @@ begin
         teeRestaurarRegistro:
           begin
             if FMaquinaToller then
-              ShellExecute(Handle, cOperacao, PWideChar('G:\RegistroBDS_17.reg'), nil, PWideChar('G:'), SW_SHOWNORMAL);
+            begin
+              if PressionouShift then
+              begin
+                vDataHoraRegistroSalvo := DataHora(TDateTime(Now)).FormatoDataHora.Remover(['/', ':', ' ']).ToString;
+
+                if FileExists(cArquivoRegistroEmbarcadero) then
+                  RenameFile(cArquivoRegistroEmbarcadero, Format(cArquivoRegistroEmbarcaderoRenomear, [vDataHoraRegistroSalvo]));
+
+
+                //ShellExecute(0, nil,'regedit.exe',PChar('/e "G:\RegistroEmbarcadero\RegistroEmbarcadero.reg" "HKEY_CURRENT_USER\Software\Embarcadero"'),nil,0)
+                ShellExecute(0, nil,'regedit.exe',PChar('/e '+ cArquivoRegistroEmbarcadero+' '+cRegistroEmbarcadero),nil,0);
+
+                TDtcForms.MessageDtc('Registro salvo com sucesso.', BotoesMsgAviso);
+              end
+              else
+                ShellExecute(Handle, cOperacao, PWideChar(cArquivoRegistroEmbarcadero), nil, PWideChar('G:'), SW_SHOWNORMAL);
+            end;
           end;
         teeScriptLogon:
           begin
@@ -692,7 +723,7 @@ begin
       end;
       //if PressionouShift and (vTipoEventoExecutar <> teeLimparOutput) then
 
-      if PressionouShift and not (vTipoEventoExecutar in [teeLimparOutput, teePrioridadesNucleo]) then
+      if PressionouShift and not (vTipoEventoExecutar in [teeLimparOutput, teePrioridadesNucleo, teeRestaurarRegistro]) then
         Self.Close;
     end
   end
