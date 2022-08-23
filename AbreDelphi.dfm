@@ -3,7 +3,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   Top = 0
   BorderIcons = []
   BorderStyle = bsSingle
-  Caption = 'Atalhos '#218'teis Vers'#227'o 22'
+  Caption = 'Atalhos '#218'teis Vers'#227'o 23'
   ClientHeight = 695
   ClientWidth = 293
   Color = clBackground
@@ -469,8 +469,9 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     Width = 275
     Height = 18
     Hint = 
-      'TECLA S: PRIORIDADES DO N'#218'CLEO CONT'#193'BIL. '#13#10'PRESSIONANDO SHIFT - ' +
-      'PRIORIDADE N'#218'CLEO FISCAL'
+      'TECLA S: PRIORIDADES DO N'#218'CLEO CONT'#193'BIL. '#13#10'PRESSIONANDO CTRL- LI' +
+      'STA PARALELA DO N'#218'CLEO CONT'#193'BIL. '#13#10'PRESSIONANDO SHIFT - PRIORIDA' +
+      'DE N'#218'CLEO FISCAL'
     Margins.Left = 15
     Margins.Bottom = 5
     Align = alTop

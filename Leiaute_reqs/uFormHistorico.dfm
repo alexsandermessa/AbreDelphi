@@ -22,6 +22,7 @@ inherited FormHistorico: TFormHistorico
     Top = 56
     Width = 984
     Height = 429
+    Color = clYellow
     ReadOnly = True
     ScrollBars = ssBoth
     TabOrder = 1

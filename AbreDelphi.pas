@@ -104,6 +104,7 @@ type
     procedure CarregarListaTeclas;
     procedure ExecutarEvento(ATeclaPressionada: Word);
     function PressionouShift: Boolean;
+    function PressionouCtrl: Boolean;
     function RetornaCaminhoAtalhosIDE: string;
     function RetornaCaminhoOutPut: string;
     procedure LimparOutput;
@@ -122,7 +123,6 @@ type
     const cArquivoRegistroEmbarcaderoRenomear = 'G:\RegistroEmbarcadero\RegistroEmbarcadero_%s.reg';
     const cRegistroEmbarcadero = '"HKEY_CURRENT_USER\Software\Embarcadero"';
     const cRegistroRestaurarDepoisAbrirDelphi = 'C:\Users\%s\RegistrosRestaurarAposDelphi.reg';
-
 
     { Private declarations }
   public
@@ -691,8 +691,10 @@ begin
           begin
             if PressionouShift then
               ShellExecute(Handle, cOperacao, PWideChar('R:\NUCLEO FISCAL\Cronogramas\Prioridades Nucleo Fiscal.xlsx'), nil, PWideChar(''), SW_SHOWNORMAL)
+            else if PressionouCtrl then
+              ShellExecute(Handle, cOperacao, PWideChar('https://adm.datacempro.com.br/Qualidade/Kanban/Compartilhado?nucleo=202877&projeto=18024027'), nil, PWideChar(''), SW_SHOWNORMAL)
             else
-              ShellExecute(Handle, cOperacao, PWideChar('R:\NUCLEO CONTABIL\Cronogramas\Lista de Prioridades\Prioridades Núcleo Contabil.xlsx'), nil, PWideChar(''), SW_SHOWNORMAL);
+              ShellExecute(Handle, cOperacao, PWideChar('https://adm.datacempro.com.br/Qualidade/Kanban/Compartilhado?nucleo=202877&projeto=17995188'), nil, PWideChar(''), SW_SHOWNORMAL);
           end;
        teeUpdate:
          begin
@@ -811,6 +813,11 @@ begin
 
   TSystemUtils.FreeAndNilDtc(vArquivoBat);
   TSystemUtils.FreeAndNilDtc(vListaPastasNaoExcluir);
+end;
+
+function TFormAbreDelphiAmbientes.PressionouCtrl: Boolean;
+begin
+  Result := FShiftState = [ssCtrl];
 end;
 
 function TFormAbreDelphiAmbientes.PressionouShift: Boolean;

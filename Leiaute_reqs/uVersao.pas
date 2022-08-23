@@ -1,4 +1,20 @@
 {
+  Versão: 3.7
+  Data: 04/07/2022
+
+  - Removido o Hint do memo-princiapal;
+  - Ajuste no Hint do Histórico;
+  - Removido o ponto do hint do histórico;
+
+  ------------------------------------------------------------------------------
+
+  Versão: 3.6
+  Data: 01/05/2022
+
+  - Incluido o Timer no botão Suporte;
+
+  ------------------------------------------------------------------------------
+
   Versão: 3.5
   Data: 31/05/2022
 
@@ -118,7 +134,7 @@ unit uVersao;
 
 interface
 const
-  cVersao = '3.5';
+  cVersao = '3.7';
 
 implementation
 

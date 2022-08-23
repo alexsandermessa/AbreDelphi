@@ -10,6 +10,7 @@ uses
 type
   TFormHistorico = class(TFormSistema)
     MemoHistorico: TMemo;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -22,5 +23,13 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TFormHistorico.FormCreate(Sender: TObject);
+begin
+  inherited;
+
+  if FAcao.LerOpcaoCor = 1 then
+    MemoHistorico.Color := clWindow;
+end;
 
 end.

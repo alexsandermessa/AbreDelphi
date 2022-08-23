@@ -8,7 +8,7 @@ uses
   System.ImageList, Vcl.ImgList, Vcl.ComCtrls, pForm, uAcoes, Clipbrd,
   cxImageList, cxGraphics, cxClasses, cxLookAndFeels, dxSkinsForm, dxBar,
   uDevExBarControlsDTC, cxLookAndFeelPainters, Vcl.Menus, cxButtons,
-  uComponentesControleAcesso, uImagensDTC, ShellApi;
+  uComponentesControleAcesso, uImagensDTC, ShellApi, Vcl.ExtCtrls;
 
 type
   TFormPrincipal = class(TFormSistema)
@@ -18,6 +18,7 @@ type
     BitBtnDTCConfig: TBitBtnDTC;
     BitBtnDTCSuporte: TBitBtnDTC;
     BitBtnDTCHistorico: TBitBtnDTC;
+    Timer: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure MemoTextoKeyPress(Sender: TObject; var Key: Char);
     procedure BitBtnDTCPreviewClick(Sender: TObject);
@@ -26,6 +27,7 @@ type
     procedure BitBtnDTCSuporteClick(Sender: TObject);
     procedure BitBtnDTCHistoricoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure TimerTimer(Sender: TObject);
   private
     { Private declarations }
     FHistorico: TStringList;
@@ -92,23 +94,24 @@ begin
   if not FAcao.ProgramaRodando('Suporte.exe') then
     begin
       BitBtnDTCSuporte.Visible := True;
-      BitBtnDTCSuporte.Left    := BitBtnDTCPreview.Left + 45;
-      BitBtnDTCPreview.Left    := BitBtnDTCPreview.Left - 40;
-      BitBtnDTCClear.Left := BitBtnDTCClear.Left + 45;
-      BitBtnDTCHistorico.Left := BitBtnDTCHistorico.Left + 45;
-      BitBtnDTCConfig.Left := BitBtnDTCConfig.Left + 45;
+      Timer.Enabled            := True;
+      BitBtnDTCSuporte.Left    := BitBtnDTCPreview.Left   + 45;
+      BitBtnDTCPreview.Left    := BitBtnDTCPreview.Left   - 40;
+      BitBtnDTCClear.Left      := BitBtnDTCClear.Left     + 45;
+      BitBtnDTCHistorico.Left  := BitBtnDTCHistorico.Left + 45;
+      BitBtnDTCConfig.Left     := BitBtnDTCConfig.Left    + 45;
     end;
 
-  BitBtnDTCSuporte.Caption := cTextoSuporte;
-  BitBtnDTCPreview.Caption := cTextoPreview;
-  BitBtnDTCConfig.Caption  := cTextoConfig;
-  BitBtnDTCClear.Caption   := cTextoLimpar;
+  BitBtnDTCSuporte.Caption   := cTextoSuporte;
+  BitBtnDTCPreview.Caption   := cTextoPreview;
+  BitBtnDTCConfig.Caption    := cTextoConfig;
+  BitBtnDTCClear.Caption     := cTextoLimpar;
   BitBtnDTCHistorico.Caption := cTextoHistorico;
-  BitBtnDTCSuporte.Hint    := cTextoSuporte + ': Abrir o suporte';
-  BitBtnDTCPreview.Hint    := cTextoPreview + ': Mostra o texto formatado antes da sua forma final';
-  BitBtnDTCClear.Hint      := cTextoLimpar + ': Limpa o campo de texto para nova digitação';
-  BitBtnDTCConfig.Hint     := cTextoConfig + ': Configuração do sistema';
-  BitBtnDTCHistorico.Hint := cTextoHistorico + ': Mostrar o histórico da ' + cTextoPreview + ' .';
+  BitBtnDTCSuporte.Hint      := cTextoSuporte   + ': Abrir o suporte';
+  BitBtnDTCPreview.Hint      := cTextoPreview   + ': Mostra o texto formatado antes da sua forma final';
+  BitBtnDTCClear.Hint        := cTextoLimpar    + ': Limpa o campo de texto para nova digitação';
+  BitBtnDTCConfig.Hint       := cTextoConfig    + ': Configuração do sistema';
+  BitBtnDTCHistorico.Hint    := cTextoHistorico + ': Mostrar o histórico da ' + cTextoPreview;
 end;
 
 procedure TFormPrincipal.BitBtnDTCConfigClick(Sender: TObject);
@@ -171,6 +174,11 @@ begin
   inherited;
   if key = #27 then
     Application.Terminate;
+end;
+
+procedure TFormPrincipal.TimerTimer(Sender: TObject);
+begin
+    BitBtnDTCSuporte.Enabled := not FAcao.ProgramaRodando('Suporte.exe');
 end;
 
 end.

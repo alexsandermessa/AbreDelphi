@@ -29,7 +29,7 @@ inherited FormPrincipal: TFormPrincipal
     Color = clYellow
     ParentShowHint = False
     ScrollBars = ssVertical
-    ShowHint = True
+    ShowHint = False
     TabOrder = 0
     OnKeyPress = MemoTextoKeyPress
   end
@@ -103,6 +103,7 @@ inherited FormPrincipal: TFormPrincipal
     Top = 292
     Width = 79
     Height = 69
+    CustomHint = BalloonHint
     OptionsImage.ImageIndex = 11
     OptionsImage.Images = ImageList
     OptionsImage.Layout = blGlyphTop
@@ -110,5 +111,11 @@ inherited FormPrincipal: TFormPrincipal
     ShowHint = True
     TabOrder = 6
     OnClick = BitBtnDTCHistoricoClick
+  end
+  object Timer: TTimer
+    Enabled = False
+    OnTimer = TimerTimer
+    Left = 528
+    Top = 336
   end
 end

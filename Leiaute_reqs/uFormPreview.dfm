@@ -96,8 +96,8 @@ inherited FormPreview: TFormPreview
     ExibicaoAltura = 48
   end
   object PopupMenu: TPopupMenu
-    Left = 128
-    Top = 80
+    Left = 496
+    Top = 344
     object WinV: TMenuItem
       Caption = 'Win + V'
       Enabled = False
