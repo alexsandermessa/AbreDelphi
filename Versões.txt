@@ -5,4 +5,4 @@ Versão 20:
 - Melhoria: Ao pressionar Shift + P o suporte já inicia com a tela de consulta de req. já aberta (Dica do Alex)
 Versão 21: Adicionada a Ferramenta Layout de Requições desenvolvida por Alexsander Messa
 Versão 22: Adicionado recurso para restaurar um registro qualquer depois da chamada do .bat que abre o Delphi (Opção 1 - Abrir Delphi) Requisito: Ter o arquivo RegistrosRestaurarAposDelphi.reg na pasta do seu usuário do Windows
-Teste
+Versão 23: Alterado o caminho de acesso a lista de prioridades; 
