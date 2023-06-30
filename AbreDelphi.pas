@@ -14,8 +14,8 @@ type
   [TEnumeradoDescricoes('"Bin.Dtc", "Bin.Liberacao", "Bin.Separado"')]
   TTipoBin = (tbDTC, tbLiberacao, tbSeparado);
 
-  [TEnumeradoValores('27,65,66,67,49,70,82,76,68,85,78,80,84,69,72,89,79,73,90,83,98,99,71,81')]
-  [TEnumeradoDescricoesCurtas('W,A,B,C,1,F,R,L,D,U,N,P,T,E,H,Y,O,I,Z,S,2,3,G,Q')]
+  [TEnumeradoValores('27,65,66,67,49,70,82,76,68,85,78,80,84,69,72,89,79,73,90,83,98,99,71,81,77')]
+  [TEnumeradoDescricoesCurtas('W,A,B,C,1,F,R,L,D,U,N,P,T,E,H,Y,O,I,Z,S,2,3,G,Q,M')]
   TTipoEventoExecutar = (teeFechar,
                          teeAmbienteDTC,
                          teeAmbienteLiberacao,
@@ -39,7 +39,8 @@ type
                          teeUpdate,
                          teeCommit,
                          teeTestaDCCOmparaEstrutura,
-                         teeLayoutRequisicoes);
+                         teeLayoutRequisicoes,
+                         teeAbrirRequisicao);
 
   TFormAbreDelphiAmbientes = class(TForm)
     lbl1: TLabel;
@@ -73,6 +74,7 @@ type
     LabelTestaDCComparaEstrutura: TLabel;
     PanelEmTesteDTC: TPanel;
     Label1: TLabel;
+    LabelRequisicao: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     function DelphiAberto(ATipoEventoExecutar: TTipoEventoExecutar): Boolean;
@@ -559,6 +561,9 @@ var
   vCaminhoAnsi: PAnsiChar;
   vFormLayoutRequisicoes: TFormPrincipal;
   vDataHoraRegistroSalvo: string;
+  vLinkReqAdm: string;
+  vNumeroReq: Texto;
+  vCaminhoArquivoReqs: String;
 const
   cOperacao = 'open';
 begin
@@ -721,6 +726,32 @@ begin
            vFormLayoutRequisicoes.ShowModal;
            TSystemUtils.FreeAndNilDtc(vFormLayoutRequisicoes);
            Self.Close;
+         end;
+
+       teeAbrirRequisicao:
+         begin
+           vNumeroReq := InputBox('Manutenção de Requisição ADM', 'Digite o número da requisição:', '');
+
+           if not vNumeroReq.Vazio then
+           begin
+             if vNumeroReq <> vNumeroReq.SomenteNumeros then
+               TDtcForms.MessageDtc('Digite apenas números')
+             else
+             begin
+
+               if PressionouShift then
+               begin
+                 vCaminhoArquivoReqs := Format('Q:\Arquivos para Requisicoes\%s', [vNumeroReq.ToString]);
+                 if DirectoryExists(AnsiString(vCaminhoArquivoReqs)) then
+                   ShellExecute(Handle, cOperacao, PWideChar(vCaminhoArquivoReqs), nil, 'Q:', SW_SHOWNORMAL);
+               end;
+
+               vLinkReqAdm := Format('https://adm.datacempro.com.br/Suporte/Requisicao/Compartilhado?&requisicao=%s', [vNumeroReq.ToString]);
+               ShellExecute(Handle, cOperacao, PWideChar(vLinkReqAdm), nil, PWideChar(''), SW_SHOWNORMAL);
+             end;
+
+             Self.Close;
+           end;
          end;
       end;
       //if PressionouShift and (vTipoEventoExecutar <> teeLimparOutput) then

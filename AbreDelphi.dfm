@@ -3,8 +3,8 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   Top = 0
   BorderIcons = []
   BorderStyle = bsSingle
-  Caption = 'Atalhos '#218'teis Vers'#227'o 23'
-  ClientHeight = 695
+  Caption = 'Atalhos '#218'teis Vers'#227'o 24'
+  ClientHeight = 719
   ClientWidth = 293
   Color = clBackground
   Font.Charset = DEFAULT_CHARSET
@@ -362,7 +362,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label12: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 654
+    Top = 680
     Width = 275
     Height = 18
     Hint = 'TECLA W OU ESC: SAIR '
@@ -567,6 +567,28 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     ParentShowHint = False
     ShowHint = True
   end
+  object LabelRequisicao: TLabel
+    AlignWithMargins = True
+    Left = 15
+    Top = 654
+    Width = 275
+    Height = 18
+    Hint = 
+      'TECLA M - Abre a req. espec'#237'fica no ADM. Com Shif abre a pasta d' +
+      'a req. tamb'#233'm, caso tenha'
+    Margins.Left = 15
+    Margins.Bottom = 5
+    Align = alTop
+    Caption = 'M - Acessar Requisi'#231#227'o ADM'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -16
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+  end
   object DirectoryListBoxLimpaOutput: TDirectoryListBox
     Left = 203
     Top = 4
@@ -577,7 +599,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   end
   object PanelEmTesteDTC: TPanel
     Left = 0
-    Top = 671
+    Top = 695
     Width = 293
     Height = 24
     Align = alBottom
@@ -607,7 +629,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object TimerDelphiAberto: TTimer
     Enabled = False
     OnTimer = TimerDelphiAbertoTimer
-    Left = 40
-    Top = 72
+    Left = 32
+    Top = 80
   end
 end
