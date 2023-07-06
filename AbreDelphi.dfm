@@ -3,7 +3,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   Top = 0
   BorderIcons = []
   BorderStyle = bsSingle
-  Caption = 'Atalhos '#218'teis Vers'#227'o 24'
+  Caption = 'Atalhos '#218'teis Vers'#227'o 25'
   ClientHeight = 719
   ClientWidth = 293
   Color = clBackground

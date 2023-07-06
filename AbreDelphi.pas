@@ -739,15 +739,18 @@ begin
              else
              begin
 
-               if PressionouShift then
+               if ((PressionouShift) or (PressionouCtrl)) then
                begin
                  vCaminhoArquivoReqs := Format('Q:\Arquivos para Requisicoes\%s', [vNumeroReq.ToString]);
                  if DirectoryExists(AnsiString(vCaminhoArquivoReqs)) then
                    ShellExecute(Handle, cOperacao, PWideChar(vCaminhoArquivoReqs), nil, 'Q:', SW_SHOWNORMAL);
                end;
 
-               vLinkReqAdm := Format('https://adm.datacempro.com.br/Suporte/Requisicao/Compartilhado?&requisicao=%s', [vNumeroReq.ToString]);
-               ShellExecute(Handle, cOperacao, PWideChar(vLinkReqAdm), nil, PWideChar(''), SW_SHOWNORMAL);
+               if not PressionouCtrl then
+               begin
+                 vLinkReqAdm := Format('https://adm.datacempro.com.br/Suporte/Requisicao/Compartilhado?&requisicao=%s', [vNumeroReq.ToString]);
+                 ShellExecute(Handle, cOperacao, PWideChar(vLinkReqAdm), nil, PWideChar(''), SW_SHOWNORMAL);
+               end;
              end;
 
              Self.Close;

@@ -1,4 +1,4 @@
-Versão 18: Acrescentada a opção G - TestaDCComparaEstrutura
+﻿Versão 18: Acrescentada a opção G - TestaDCComparaEstrutura
 Versão 19: Mostra se esta EM TESTE DTC
 Versão 20: 
 - Corrigido o caminho para a chamada do Suporte no servidor (De Core8 para FileServer)
@@ -7,3 +7,4 @@ Versão 21: Adicionada a Ferramenta Layout de Requições desenvolvida por Alexs
 Versão 22: Adicionado recurso para restaurar um registro qualquer depois da chamada do .bat que abre o Delphi (Opção 1 - Abrir Delphi) Requisito: Ter o arquivo RegistrosRestaurarAposDelphi.reg na pasta do seu usuário do Windows
 Versão 23: Alterado o caminho de acesso a lista de prioridades; 
 Versão 24: Adicionado o atalho "M - Acessar Requisição ADM" aonde se digita o número da req desejada e ela é aberta no ADM para manutenção. Se pressionada a tecla Shif, abre a pasta da req. caso exista uma
+Versão 25: Adicionado ao atalho "M - Acessar Requisição ADM" a opção de abrir apenas a pasta da requisição usando a tecla Ctrl.
