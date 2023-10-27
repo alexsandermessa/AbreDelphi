@@ -14,8 +14,8 @@ type
   [TEnumeradoDescricoes('"Bin.Dtc", "Bin.Liberacao", "Bin.Separado"')]
   TTipoBin = (tbDTC, tbLiberacao, tbSeparado);
 
-  [TEnumeradoValores('27,65,66,67,49,70,82,76,68,85,78,80,84,69,72,89,79,73,90,83,98,99,71,81,77')]
-  [TEnumeradoDescricoesCurtas('W,A,B,C,1,F,R,L,D,U,N,P,T,E,H,Y,O,I,Z,S,2,3,G,Q,M')]
+  [TEnumeradoValores('27,65,66,67,49,70,82,76,68,85,78,80,84,69,72,89,79,73,90,83,98,99,71,81,77,75')]
+  [TEnumeradoDescricoesCurtas('W,A,B,C,1,F,R,L,D,U,N,P,T,E,H,Y,O,I,Z,S,2,3,G,Q,M,K')]
   TTipoEventoExecutar = (teeFechar,
                          teeAmbienteDTC,
                          teeAmbienteLiberacao,
@@ -40,7 +40,8 @@ type
                          teeCommit,
                          teeTestaDCCOmparaEstrutura,
                          teeLayoutRequisicoes,
-                         teeAbrirRequisicao);
+                         teeAbrirRequisicao,
+                         teeTypeScanner);
 
   TFormAbreDelphiAmbientes = class(TForm)
     lbl1: TLabel;
@@ -75,6 +76,11 @@ type
     PanelEmTesteDTC: TPanel;
     Label1: TLabel;
     LabelRequisicao: TLabel;
+    LabelTypeScanner: TLabel;
+    TimerTypeScanner: TTimer;
+    LabelClassComponent: TLabel;
+    Labeljanela: TLabel;
+    LabelNomeClasse: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     function DelphiAberto(ATipoEventoExecutar: TTipoEventoExecutar): Boolean;
@@ -86,6 +92,7 @@ type
     procedure TimerDelphiAbertoTimer(Sender: TObject);
     procedure TimerBinAtualTimer(Sender: TObject);
     procedure TimerDestacarAtalhoTimer(Sender: TObject);
+    procedure TimerTypeScannerTimer(Sender: TObject);
   private
     FMaquinaToller : Boolean;
     FLabelDestacado: TLabel;
@@ -113,6 +120,7 @@ type
     procedure CopiaArquivosOutPut;
     function RetornaCaminhoBat(ANomeArquivoBat: string): string;
     procedure VerificarOpcoesPersonalizadas;
+    procedure TypeScanner(Sender: TObject);
 
     const cArquivoIniciaAmbiente = 'MeuIniciaEmbiente.bat';
     const cArquivoLimparOutput = 'LimparOutput.bat';
@@ -728,6 +736,21 @@ begin
            Self.Close;
          end;
 
+       teeTypeScanner:
+         begin
+           PanelEmTesteDTC.Visible     := not PanelEmTesteDTC.Visible;
+           LabelTypeScanner.Caption    := TSystemUtils.Iif(PanelEmTesteDTC.Visible, 'K - TypeScanner', 'K - TypeScanner (Habilitado)');
+           Self.Height                 := TSystemUtils.Iif(PanelEmTesteDTC.Visible, Self.Height - (18 * 4), Self.Height + (18 * 4));
+
+           LabelTypeScanner.Font.Color := TSystemUtils.IifGeneric<TColor>(not PanelEmTesteDTC.Visible, clRed, clLime);
+           Self.FormStyle              := TSystemUtils.IifGeneric<TFormStyle>(PanelEmTesteDTC.Visible, fsNormal, fsStayOnTop);
+
+           Labeljanela.Visible         := not PanelEmTesteDTC.Visible;
+           LabelNomeClasse.Visible     := not PanelEmTesteDTC.Visible;
+           LabelClassComponent.Visible := not PanelEmTesteDTC.Visible;
+           TimerTypeScanner.Enabled    := not PanelEmTesteDTC.Visible;
+         end;
+
        teeAbrirRequisicao:
          begin
            vNumeroReq := InputBox('Manutenção de Requisição ADM', 'Digite o número da requisição:', '');
@@ -927,6 +950,78 @@ begin
   FLabelDestacado.Font.Color := clLime;
   FLabelDestacado.Update;
   TimerDestacarAtalho.Enabled := False;
+end;
+
+procedure TFormAbreDelphiAmbientes.TimerTypeScannerTimer(Sender: TObject);
+begin
+  TypeScanner(Self);
+end;
+
+procedure TFormAbreDelphiAmbientes.TypeScanner(Sender: TObject);
+var
+  H, hWnd: THandle;
+  CrPos: TPoint;
+  nomejanela,
+  nomeclasse, ClassName,
+  nomeobjeto,
+  senha: array[0..255] of Char;
+  vAux: String;
+begin
+  try
+    GetCursorPos(CrPos); // Identifica a posicao do mouse
+    hWnd := WindowFromPoint(CrPos); // Pega o Handle do controle na posição do mouse
+    H := GetForegroundWindow;
+
+    if H <> 0 then
+    begin
+      GetClassName(H, ClassName, SizeOf(ClassName));
+    end;
+
+    if hwnd <> 0 then
+    begin
+
+      //preenche o conteúdo do vetor com char zeros
+      FillChar(nomejanela, 255, #0);
+      FillChar(nomeclasse, 255, #0);
+      FillChar(nomeobjeto, 255, #0);
+
+      //pega o nome da janela
+      GetWindowText(hWnd, NomeJanela, 255);
+      //pega o nome da classe
+      GetClassName(hWnd, nomeclasse, 255);
+
+      //GetProp()
+      GetClassName(hWnd, nomeclasse, 255);
+
+      //manda uma mensagem para o handle da janela
+      //perguntando se ele possui um password char
+      if SendMessage(hWnd, EM_GETPASSWORDCHAR, 0, 0) <> 0 then
+      begin
+        FillChar(senha, 255, #0);
+        //Caso positivo manda a mensagem WM_GETTEXT
+        SendMessage(hWnd, WM_GETTEXT, 255, integer(@senha)); //o integer aqui faz com que o parâmetro seja passado como ponteiro em vez de vetor
+        //lbSenha.Caption := string(senha);
+        //Caso positivo seta o passwordchar para #0
+        //o problema de fazer isso é que vai entrar uma vez só no if
+        SendMessage(hWnd, EM_SETPASSWORDCHAR, Ord('?'), 0);
+      end;
+
+      //preenche os campos
+      Labeljanela.Caption := string(nomejanela);
+
+      vAux := string(nomeclasse);
+      if(UpperCase(vAux[1]) = 'T')then
+        vAux := Copy(vAux, 2,Length(vAux))
+      else
+        vAux := Copy(vAux, 1,Length(vAux));
+
+      LabelNomeClasse.Caption := String(ClassName);
+
+      LabelClassComponent.Caption := vAux;
+    end;
+
+  except
+  end;
 end;
 
 procedure TFormAbreDelphiAmbientes.VerificarDelphiAberto;

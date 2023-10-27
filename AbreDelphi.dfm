@@ -3,9 +3,9 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   Top = 0
   BorderIcons = []
   BorderStyle = bsSingle
-  Caption = 'Atalhos '#218'teis Vers'#227'o 25'
-  ClientHeight = 719
-  ClientWidth = 293
+  Caption = 'Atalhos '#218'teis Vers'#227'o 26'
+  ClientHeight = 750
+  ClientWidth = 304
   Color = clBackground
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 215
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA F: FECHA O DELPHI FOR'#199'ADO'
     Margins.Left = 15
@@ -42,7 +42,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 236
-    Width = 275
+    Width = 286
     Height = 18
     Margins.Left = 15
     Margins.Bottom = 5
@@ -61,7 +61,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 262
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA L: EXECUTA O'#13#10'C:\ScriptLogon.lnk'
     Margins.Left = 15
@@ -81,7 +81,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 288
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA D: ABRE O DCDADOS '#13#10'DO AMBIENTE SELECIONADO'
     Margins.Left = 15
@@ -101,7 +101,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 10
-    Width = 275
+    Width = 286
     Height = 20
     Hint = 
       'TECLA A : INICIA AMBIENTE BIN.DTC.'#13#10'PRESSIONANDO SHIFT ABRE O DE' +
@@ -124,7 +124,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 38
-    Width = 275
+    Width = 286
     Height = 20
     Hint = 
       'TECLA B : INICIA AMBIENTE BIN.LIBERACAO.'#13#10'PRESSIONANDO SHIFT ABR' +
@@ -146,7 +146,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 66
-    Width = 278
+    Width = 289
     Height = 20
     Hint = 
       'TECLA C : INICIA AMBIENTE BIN.SEPARADO.'#13#10'PRESSIONANDO SHIFT ABRE' +
@@ -168,7 +168,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 142
-    Width = 278
+    Width = 289
     Height = 18
     Hint = 
       'TECLA 1: ABRE O DELPHI'#13#10'PRESSIONANDO SHIFT: ABRE DELPHI SEM PROJ' +
@@ -191,7 +191,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 340
-    Width = 278
+    Width = 289
     Height = 18
     Hint = 'TECLA U: ABRE O DCDADOSAUDITORIA '#13#10'DO AMBIENTE SELECIONADO'
     Margins.Left = 15
@@ -212,7 +212,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 366
-    Width = 275
+    Width = 286
     Height = 20
     Hint = 'TECLA N: REINICIA OU INICIA O SEND'
     Margins.Left = 15
@@ -232,7 +232,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 10
     Top = 86
-    Width = 273
+    Width = 284
     Height = 18
     Margins.Left = 10
     Margins.Top = 0
@@ -251,7 +251,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 394
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA P: ABRE O SUPORTE. AO PRESSIONAR SHIFT+ P ABRE O SUPORTE C' +
@@ -273,7 +273,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 314
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA T: ABRE O TESTCOMPLETE DO AMBIENTE SELECIONADO. '#13#10'OBS: SE ' +
@@ -295,7 +295,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 420
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA E: RODA A LIBDELPHI DO '#13#10'AMBIENTE SELECIONADO.'#13#10'COM SHIFT ' +
@@ -317,7 +317,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 446
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA H: RODA A LIBDELPHICOMPLETO DO '#13#10'AMBIENTE SELECIONADO.'#13#10'CO' +
@@ -339,7 +339,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 472
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA Y: LIMPA AS DCUs, EXECUT'#193'VEIS, *.RSM, *.MAP DE '#13#10'TODAS AS ' +
@@ -362,8 +362,8 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label12: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 680
-    Width = 275
+    Top = 706
+    Width = 286
     Height = 18
     Hint = 'TECLA W OU ESC: SAIR '
     Margins.Left = 15
@@ -383,7 +383,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 498
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA O - COPIA AS DLLs NECESS'#193'RIAS PARA A PASTA OUTPUT'#13#10'DO SIST' +
@@ -405,7 +405,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 524
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA I: RODA A LIBDELPHI_IMAGENS DO '#13#10'AMBIENTE SELECIONADO.'
     Margins.Left = 15
@@ -425,7 +425,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 0
     Top = 114
-    Width = 293
+    Width = 304
     Height = 18
     Margins.Left = 0
     Margins.Top = 10
@@ -446,7 +446,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 550
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA Z: ABRE O PERSONALIZADOR DOS SISTEMAS'
     Margins.Left = 15
@@ -466,7 +466,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 576
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA S: PRIORIDADES DO N'#218'CLEO CONT'#193'BIL. '#13#10'PRESSIONANDO CTRL- LI' +
@@ -489,7 +489,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 163
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA 2 - FAZ UM UPDATE NA PASTA DELPHI DO BIN SELECIONADO'
     Margins.Left = 15
@@ -509,7 +509,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 189
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA 3 - ABRE A TELA DE COMMIT NA PASTA DELPHI DO BIN SELECIONA' +
@@ -531,7 +531,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 602
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA G - Abre o TestaDCComparaEstrutura'
     Margins.Left = 15
@@ -551,7 +551,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 628
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 'TECLA Q - Abre o Layout de Requisi'#231#245'es'
     Margins.Left = 15
@@ -571,7 +571,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     AlignWithMargins = True
     Left = 15
     Top = 654
-    Width = 275
+    Width = 286
     Height = 18
     Hint = 
       'TECLA M - Abre a req. espec'#237'fica no ADM. Com Shif abre a pasta d' +
@@ -589,6 +589,85 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     ParentShowHint = False
     ShowHint = True
   end
+  object LabelTypeScanner: TLabel
+    AlignWithMargins = True
+    Left = 15
+    Top = 680
+    Width = 286
+    Height = 18
+    Margins.Left = 15
+    Margins.Bottom = 5
+    Align = alTop
+    Caption = 'K - TypeScanner'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -16
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+  end
+  object LabelClassComponent: TLabel
+    AlignWithMargins = True
+    Left = 15
+    Top = 784
+    Width = 286
+    Height = 18
+    Margins.Left = 15
+    Margins.Bottom = 5
+    Align = alTop
+    Caption = 'lbClassComponent'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -16
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    Visible = False
+  end
+  object Labeljanela: TLabel
+    AlignWithMargins = True
+    Left = 15
+    Top = 732
+    Width = 286
+    Height = 18
+    Margins.Left = 15
+    Margins.Bottom = 5
+    Align = alTop
+    Caption = 'lbjanela'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -16
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    Visible = False
+  end
+  object LabelNomeClasse: TLabel
+    AlignWithMargins = True
+    Left = 15
+    Top = 758
+    Width = 286
+    Height = 18
+    Margins.Left = 15
+    Margins.Bottom = 5
+    Align = alTop
+    Caption = 'NomeClasse'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -16
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    Visible = False
+  end
   object DirectoryListBoxLimpaOutput: TDirectoryListBox
     Left = 203
     Top = 4
@@ -599,8 +678,8 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   end
   object PanelEmTesteDTC: TPanel
     Left = 0
-    Top = 695
-    Width = 293
+    Top = 726
+    Width = 304
     Height = 24
     Align = alBottom
     Caption = 'Em Teste DTC: '
@@ -631,5 +710,12 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     OnTimer = TimerDelphiAbertoTimer
     Left = 32
     Top = 80
+  end
+  object TimerTypeScanner: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = TimerTypeScannerTimer
+    Left = 136
+    Top = 376
   end
 end
