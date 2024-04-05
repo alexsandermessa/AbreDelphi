@@ -9,3 +9,4 @@ Versão 23: Alterado o caminho de acesso a lista de prioridades;
 Versão 24: Adicionado o atalho "M - Acessar Requisição ADM" aonde se digita o número da req desejada e ela é aberta no ADM para manutenção. Se pressionada a tecla Shif, abre a pasta da req. caso exista uma
 Versão 25: Adicionado ao atalho "M - Acessar Requisição ADM" a opção de abrir apenas a pasta da requisição usando a tecla Ctrl.
 Versão 26: Adicionado o atalho "K - TypeScanner".
+Versão 27: Ajustado o atalho "M" para poder abrir req. direto no do ADM.

@@ -771,7 +771,7 @@ begin
 
                if not PressionouCtrl then
                begin
-                 vLinkReqAdm := Format('https://adm.datacempro.com.br/Suporte/Requisicao/Compartilhado?&requisicao=%s', [vNumeroReq.ToString]);
+                 vLinkReqAdm := Format('https://adm.datacempro.com.br/Requisicoes/Home/Compartilhado/%s', [vNumeroReq.ToString]);
                  ShellExecute(Handle, cOperacao, PWideChar(vLinkReqAdm), nil, PWideChar(''), SW_SHOWNORMAL);
                end;
              end;
