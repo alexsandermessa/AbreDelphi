@@ -22,7 +22,7 @@ type
                          teeAmbienteSeparado,
                          teeAbreDelphi,
                          teeFechaDelphi,
-                         teeRestaurarRegistro,
+                         teeRestaurarRegistro_Desativado,
                          teeScriptLogon,
                          teeDCDados,
                          teeDCAuditoria,
@@ -45,7 +45,6 @@ type
 
   TFormAbreDelphiAmbientes = class(TForm)
     lbl1: TLabel;
-    LabelRestauraRegistro: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     LabelA: TLabel;
@@ -94,13 +93,13 @@ type
     procedure TimerDestacarAtalhoTimer(Sender: TObject);
     procedure TimerTypeScannerTimer(Sender: TObject);
   private
-    FMaquinaToller : Boolean;
     FLabelDestacado: TLabel;
     FListaTeclas: TDictionary<Word,TTipoEventoExecutar>;
     FShiftState: TShiftState;
 
     FLocalBinSelecionado: String;
     FTipoBinSelecionado: TTipoBin;
+    procedure ConfigurarFavoritosWelcomePageDelphi12;
     procedure SetTipoBinSelecionado(const Value: TTipoBin);
     property TipoBinSelecionado: TTipoBin read FTipoBinSelecionado write SetTipoBinSelecionado;
     procedure AlterarAmbiente(ATipoBin : TTipoBin);
@@ -119,7 +118,6 @@ type
     procedure LimparOutput;
     procedure CopiaArquivosOutPut;
     function RetornaCaminhoBat(ANomeArquivoBat: string): string;
-    procedure VerificarOpcoesPersonalizadas;
     procedure TypeScanner(Sender: TObject);
 
     const cArquivoIniciaAmbiente = 'MeuIniciaEmbiente.bat';
@@ -146,7 +144,7 @@ var
 implementation
 
 uses
-  Winapi.TlHelp32, uStringManipulacao;
+  Winapi.TlHelp32, uStringManipulacao, uArquivoManipulacao, System.RegularExpressions;
 
 {$R *.dfm}
 
@@ -154,29 +152,21 @@ procedure TFormAbreDelphiAmbientes.AbrirDelphi;
 var
   vArquivoBat: TStrings;
   vCaminhoAbreDelphi: string;
-  vCaminhoRegostroRestaurar: string;
+  vCaminhoRegistroRestaurar: string;
 begin
   vArquivoBat := TStringList.Create;
 
   vArquivoBat.Add('@Echo OFF');
 
   if PressionouShift then
-  begin
-    if FMaquinaToller then
-    begin
-      vArquivoBat.Add('@call REGEDIT /s "'+cArquivoRegistroEmbarcadero+'"');
-      vArquivoBat.Add('@call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi.bat');
-    end
-    else
-      vArquivoBat.Add('@call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi_SemProjetos.bat');
-  end
+    vArquivoBat.Add('@call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi_SemProjetos.bat')
   else
     vArquivoBat.Add('@call '+RetornaCaminhoAtalhosIDE+'Abre_IDE_Delphi.bat');
 
-  vCaminhoRegostroRestaurar := Format(cRegistroRestaurarDepoisAbrirDelphi, [TSystemUtils.NomeUsuario]);
+  vCaminhoRegistroRestaurar := Format(cRegistroRestaurarDepoisAbrirDelphi, [TSystemUtils.NomeUsuario]);
 
-  if FileExists(vCaminhoRegostroRestaurar) then
-    vArquivoBat.Add('call REGEDIT /s "'+vCaminhoRegostroRestaurar+'"');
+  if FileExists(vCaminhoRegistroRestaurar) then
+    vArquivoBat.Add('call REGEDIT /s "'+vCaminhoRegistroRestaurar+'"');
 
   vCaminhoAbreDelphi := RetornaCaminhoBat(cArquivoAbreDelphi);
 
@@ -221,6 +211,8 @@ begin
   TSystemUtils.FreeAndNilDtc(vArquivoBat);
 
   ShellExecute(Handle, 'Open', PWideChar(vCaminhoPastaAmbiente), nil, PWideChar('C:'), SW_SHOWNORMAL);
+
+  ConfigurarFavoritosWelcomePageDelphi12;
 end;
 
 procedure TFormAbreDelphiAmbientes.BeforeDestruction;
@@ -235,7 +227,6 @@ begin
   CarregarListaTeclas;
   DTCHeaderExecutar.Font.Color := clRed;
   FShiftState := [];
-  VerificarOpcoesPersonalizadas;
   TimerDelphiAberto.Enabled := True;
 end;
 
@@ -249,7 +240,7 @@ function TFormAbreDelphiAmbientes.DelphiAberto(ATipoEventoExecutar: TTipoEventoE
 begin
   Result := False;
 
-  if ATipoEventoExecutar in [teeAmbienteDTC,teeAmbienteLiberacao, teeAmbienteSeparado, teeAbreDelphi,teeRestaurarRegistro, teeLibDelphi, teeLibDelphiCompleto, teeLibDelphiImagens] then
+  if ATipoEventoExecutar in [teeAmbienteDTC,teeAmbienteLiberacao, teeAmbienteSeparado, teeAbreDelphi,teeLibDelphi, teeLibDelphiCompleto, teeLibDelphiImagens] then
   begin
     Result := DelphiRodando;
 
@@ -323,6 +314,56 @@ begin
 
   FListaTeclas.Add(50, teeUpdate);
   FListaTeclas.Add(51, teeCommit);
+end;
+
+procedure TFormAbreDelphiAmbientes.ConfigurarFavoritosWelcomePageDelphi12;
+var
+  vCaminhoRegistroRestaurar : string;
+  vArquivoRegistroLeitura : TStrings;
+  vArquivoRegistroSalvar : TStrings;
+  vLinha: string;
+  vLinhaSalvar: string;
+  vEncontrouFavoritos: Boolean;
+  vMatch : TMatch;
+  vBin: string;
+const
+  cExpressaoBin = '(?<=C:\\\\Bin\.)\w+';
+  cExpressaoInicioLinhaFavoritos = 'File_\d.=';
+begin
+  vEncontrouFavoritos := false;
+  vCaminhoRegistroRestaurar := Format(cRegistroRestaurarDepoisAbrirDelphi, [TSystemUtils.NomeUsuario]);
+  vArquivoRegistroSalvar := TStringList.Create;
+  vArquivoRegistroLeitura := TStringList.Create;
+  vBin := texto(FLocalBinSelecionado).TextoDepoisDe('.');
+
+  if FileExists(vCaminhoRegistroRestaurar) then
+  begin
+    vArquivoRegistroLeitura.LoadFromFile(vCaminhoRegistroRestaurar);
+
+    for vLinha in vArquivoRegistroLeitura do
+    begin
+      vLinhaSalvar := vLinha;
+      if vLinhaSalvar.Contains('Favorite Projects') then
+        vEncontrouFavoritos := true;
+
+      if vEncontrouFavoritos then
+      begin
+        vMatch := TRegEx.Match(vLinhaSalvar, cExpressaoInicioLinhaFavoritos, [roIgnoreCase, roSingleLine]);
+
+        if vMatch.Success then
+          vMatch := TRegEx.Match(vLinhaSalvar, cExpressaoBin, [roIgnoreCase, roSingleLine]);
+
+        if vMatch.Success then
+          vLinhaSalvar := TRegEx.Replace(vLinhaSalvar, cExpressaoBin, vBin);
+      end;
+
+      vArquivoRegistroSalvar.Add(vLinhaSalvar);
+    end;
+
+
+    if vEncontrouFavoritos and (vArquivoRegistroSalvar.Count > 0) then
+      vArquivoRegistroSalvar.SaveToFile(vCaminhoRegistroRestaurar);
+  end;
 end;
 
 procedure TFormAbreDelphiAmbientes.ConsultarVariavelDelphiSVN;
@@ -567,7 +608,6 @@ var
   vTipoBin: TTipoBin;
   vCaminhoBinExecutar: PWideChar;
   vCaminhoAnsi: PAnsiChar;
-  vDataHoraRegistroSalvo: string;
   vLinkReqAdm: string;
   vNumeroReq: Texto;
   vCaminhoArquivoReqs: String;
@@ -598,27 +638,6 @@ begin
           begin
             ShellExecute(Handle, cOperacao, PWideChar('I:\FecharDelphi.bat'), nil, PWideChar('I:'), SW_SHOWNORMAL);
           end ;
-        teeRestaurarRegistro:
-          begin
-            if FMaquinaToller then
-            begin
-              if PressionouShift then
-              begin
-                vDataHoraRegistroSalvo := DataHora(TDateTime(Now)).FormatoDataHora.Remover(['/', ':', ' ']).ToString;
-
-                if FileExists(cArquivoRegistroEmbarcadero) then
-                  RenameFile(cArquivoRegistroEmbarcadero, Format(cArquivoRegistroEmbarcaderoRenomear, [vDataHoraRegistroSalvo]));
-
-
-                //ShellExecute(0, nil,'regedit.exe',PChar('/e "G:\RegistroEmbarcadero\RegistroEmbarcadero.reg" "HKEY_CURRENT_USER\Software\Embarcadero"'),nil,0)
-                ShellExecute(0, nil,'regedit.exe',PChar('/e '+ cArquivoRegistroEmbarcadero+' '+cRegistroEmbarcadero),nil,0);
-
-                TDtcForms.MessageDtc('Registro salvo com sucesso.', BotoesMsgAviso);
-              end
-              else
-                ShellExecute(Handle, cOperacao, PWideChar(cArquivoRegistroEmbarcadero), nil, PWideChar('G:'), SW_SHOWNORMAL);
-            end;
-          end;
         teeScriptLogon:
           begin
             ShellExecute(Handle, cOperacao, PWideChar('\\FileServer\Scripts\ScriptLogon.vbs'), nil, PWideChar('I:'), SW_SHOWNORMAL);
@@ -743,6 +762,7 @@ begin
            Labeljanela.Visible         := not PanelEmTesteDTC.Visible;
            LabelNomeClasse.Visible     := not PanelEmTesteDTC.Visible;
            LabelClassComponent.Visible := not PanelEmTesteDTC.Visible;
+
            TimerTypeScanner.Enabled    := not PanelEmTesteDTC.Visible;
          end;
 
@@ -777,7 +797,7 @@ begin
       end;
       //if PressionouShift and (vTipoEventoExecutar <> teeLimparOutput) then
 
-      if PressionouShift and not (vTipoEventoExecutar in [teeLimparOutput, teePrioridadesNucleo, teeRestaurarRegistro]) then
+      if PressionouShift and not (vTipoEventoExecutar in [teeLimparOutput, teePrioridadesNucleo]) then
         Self.Close;
     end
   end
@@ -1034,20 +1054,6 @@ begin
     LabelDelphiAberto.Margins.Top := 0;
     Label7.Height                 := 20;
     Label7.Margins.Top            := 10;
-  end;
-end;
-
-procedure TFormAbreDelphiAmbientes.VerificarOpcoesPersonalizadas;
-var
-  vNomeMaquina: Texto;
-begin
-  vNomeMaquina := TSystemUtils.GetComputerName;
-  FMaquinaToller := vNomeMaquina.Contem('TOLLER');
-
-  if not FMaquinaToller then
-  begin
-    LabelRestauraRegistro.Visible := False;
-    Self.Height := Self.Height - LabelRestauraRegistro.Height - LabelRestauraRegistro.Margins.Top - LabelRestauraRegistro.Margins.Bottom;
   end;
 end;
 

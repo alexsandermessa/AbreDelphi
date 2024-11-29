@@ -3,8 +3,8 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   Top = 0
   BorderIcons = []
   BorderStyle = bsSingle
-  Caption = 'Atalhos '#218'teis Vers'#227'o 28'
-  ClientHeight = 750
+  Caption = 'Atalhos '#218'teis Vers'#227'o 29'
+  ClientHeight = 729
   ClientWidth = 304
   Color = clBackground
   Font.Charset = DEFAULT_CHARSET
@@ -36,29 +36,10 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
     ParentShowHint = False
     ShowHint = True
   end
-  object LabelRestauraRegistro: TLabel
-    AlignWithMargins = True
-    Left = 15
-    Top = 262
-    Width = 286
-    Height = 18
-    Margins.Left = 15
-    Margins.Bottom = 5
-    Align = alTop
-    Caption = 'R - Restaura/Exporta Reg'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clLime
-    Font.Height = -16
-    Font.Name = 'Courier New'
-    Font.Style = []
-    ParentFont = False
-    ParentShowHint = False
-    ShowHint = True
-  end
   object Label2: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 288
+    Top = 262
     Width = 286
     Height = 18
     Hint = 'TECLA L: EXECUTA O'#13#10'C:\ScriptLogon.lnk'
@@ -78,7 +59,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label3: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 314
+    Top = 288
     Width = 286
     Height = 18
     Hint = 'TECLA D: ABRE O DCDADOS '#13#10'DO AMBIENTE SELECIONADO'
@@ -188,7 +169,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label8: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 366
+    Top = 340
     Width = 289
     Height = 18
     Hint = 'TECLA U: ABRE O DCDADOSAUDITORIA '#13#10'DO AMBIENTE SELECIONADO'
@@ -209,7 +190,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label4: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 392
+    Top = 366
     Width = 286
     Height = 20
     Hint = 'TECLA N: REINICIA OU INICIA O SEND'
@@ -248,7 +229,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label5: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 420
+    Top = 394
     Width = 286
     Height = 18
     Hint = 
@@ -270,7 +251,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label6: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 340
+    Top = 314
     Width = 286
     Height = 18
     Hint = 
@@ -292,7 +273,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label9: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 446
+    Top = 420
     Width = 286
     Height = 18
     Hint = 
@@ -314,7 +295,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label10: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 472
+    Top = 446
     Width = 286
     Height = 18
     Hint = 
@@ -336,7 +317,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label11: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 498
+    Top = 472
     Width = 286
     Height = 18
     Hint = 
@@ -360,7 +341,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Label12: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 706
+    Top = 680
     Width = 286
     Height = 18
     Hint = 'TECLA W OU ESC: SAIR '
@@ -380,7 +361,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelArquivosOutPut: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 524
+    Top = 498
     Width = 286
     Height = 18
     Hint = 
@@ -402,7 +383,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelLibDelphiImagens: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 550
+    Top = 524
     Width = 286
     Height = 18
     Hint = 'TECLA I: RODA A LIBDELPHI_IMAGENS DO '#13#10'AMBIENTE SELECIONADO.'
@@ -443,7 +424,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelPersonalizador: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 576
+    Top = 550
     Width = 286
     Height = 18
     Hint = 'TECLA Z: ABRE O PERSONALIZADOR DOS SISTEMAS'
@@ -463,7 +444,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelPrioridades: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 602
+    Top = 576
     Width = 286
     Height = 18
     Hint = 
@@ -528,7 +509,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelTestaDCComparaEstrutura: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 628
+    Top = 602
     Width = 286
     Height = 18
     Hint = 'TECLA G - Abre o TestaDCComparaEstrutura'
@@ -568,7 +549,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelRequisicao: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 654
+    Top = 628
     Width = 286
     Height = 18
     Hint = 
@@ -590,7 +571,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelTypeScanner: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 680
+    Top = 654
     Width = 286
     Height = 18
     Margins.Left = 15
@@ -609,7 +590,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelClassComponent: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 784
+    Top = 758
     Width = 286
     Height = 18
     Margins.Left = 15
@@ -629,7 +610,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object Labeljanela: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 732
+    Top = 706
     Width = 286
     Height = 18
     Margins.Left = 15
@@ -649,7 +630,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   object LabelNomeClasse: TLabel
     AlignWithMargins = True
     Left = 15
-    Top = 758
+    Top = 732
     Width = 286
     Height = 18
     Margins.Left = 15
@@ -676,7 +657,7 @@ object FormAbreDelphiAmbientes: TFormAbreDelphiAmbientes
   end
   object PanelEmTesteDTC: TPanel
     Left = 0
-    Top = 726
+    Top = 705
     Width = 304
     Height = 24
     Align = alBottom
