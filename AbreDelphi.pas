@@ -39,7 +39,7 @@ type
                          teeUpdate,
                          teeCommit,
                          teeTestaDCCOmparaEstrutura,
-                         teeLayoutRequisicoes,
+                         teeCheckForModification,
                          teeAbrirRequisicao,
                          teeTypeScanner);
 
@@ -146,7 +146,7 @@ var
 implementation
 
 uses
-  Winapi.TlHelp32, uStringManipulacao, uFormPrincipal;
+  Winapi.TlHelp32, uStringManipulacao;
 
 {$R *.dfm}
 
@@ -567,7 +567,6 @@ var
   vTipoBin: TTipoBin;
   vCaminhoBinExecutar: PWideChar;
   vCaminhoAnsi: PAnsiChar;
-  vFormLayoutRequisicoes: TFormPrincipal;
   vDataHoraRegistroSalvo: string;
   vLinkReqAdm: string;
   vNumeroReq: Texto;
@@ -712,7 +711,6 @@ begin
        teeUpdate:
          begin
            vCaminhoAnsi := PAnsiChar(AnsiString('C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe /command:update /path:"C:\'+FLocalBinSelecionado+'\Delphi" /logmsg:"" /closeonend:0'));
-           //vCaminhoAnsi := PAnsiChar(AnsiString('C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe /command:merge /path:"C:\'+FLocalBinSelecionado+'\Delphi" /logmsg:"" /closeonend:0'));
            WinExec(vCaminhoAnsi, SW_NORMAL);
          end;
        teeCommit:
@@ -727,13 +725,10 @@ begin
             Self.Close;
          end;
 
-       teeLayoutRequisicoes:
+       teeCheckForModification:
          begin
-           vFormLayoutRequisicoes := TFormPrincipal.Create(self);
-           Self.Hide;
-           vFormLayoutRequisicoes.ShowModal;
-           TSystemUtils.FreeAndNilDtc(vFormLayoutRequisicoes);
-           Self.Close;
+            vCaminhoAnsi := PAnsiChar(AnsiString('C:\Program Files\TortoiseSVN\bin\TortoiseProc.exe /command:repostatus /path:"C:\'+FLocalBinSelecionado+'\Delphi" /logmsg:"" /closeonend:0'));
+            WinExec(vCaminhoAnsi, SW_NORMAL);
          end;
 
        teeTypeScanner:
@@ -771,7 +766,7 @@ begin
 
                if not PressionouCtrl then
                begin
-                 vLinkReqAdm := Format('https://adm.datacempro.com.br/Suporte/Requisicao/Compartilhado?&requisicao=%s', [vNumeroReq.ToString]);
+                 vLinkReqAdm := Format('https://adm.datacempro.com.br/Requisicoes/Home/Compartilhado/%s', [vNumeroReq.ToString]);
                  ShellExecute(Handle, cOperacao, PWideChar(vLinkReqAdm), nil, PWideChar(''), SW_SHOWNORMAL);
                end;
              end;
