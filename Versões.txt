@@ -12,3 +12,4 @@ Versão 26: Adicionado o atalho "K - TypeScanner".
 Versão 27: Ajustado o atalho "M" para poder abrir req. direto no do ADM.
 Versão 28: Substitui do atalho  "Q" o leiaute de Req pele CheckForModification e também corrigi o caminho pra abrir req no suporte.
 Versão 29: Ajuste para alterar o bin corrente dos projetos favoritos que estejam no arquivo C:\Users\NOME_USUARIO\RegistrosRestaurarAposDelphi.reg pare que sempre mostre os sistemas favoritos no repositório selecionado (bin.DTC, bin.Separado.. etc)
+Versão 30: Permitir acessar mais de uma requisição no adm de uma vez só.

@@ -605,12 +605,14 @@ end;
 procedure TFormAbreDelphiAmbientes.ExecutarEvento(ATeclaPressionada: Word);
 var
   vTipoEventoExecutar : TTipoEventoExecutar;
-  vTipoBin: TTipoBin;
-  vCaminhoBinExecutar: PWideChar;
-  vCaminhoAnsi: PAnsiChar;
-  vLinkReqAdm: string;
-  vNumeroReq: Texto;
-  vCaminhoArquivoReqs: String;
+  vTipoBin            : TTipoBin;
+  vCaminhoBinExecutar : PWideChar;
+  vCaminhoAnsi        : PAnsiChar;
+  vLinkReqAdm         : string;
+  vNumeroReq          : Texto;
+  vRequisicoes        : String;
+  vListaRequisicoes   : TArray<String>;
+  vCaminhoArquivoReqs : String;
 const
   cOperacao = 'open';
 begin
@@ -768,30 +770,34 @@ begin
 
        teeAbrirRequisicao:
          begin
-           vNumeroReq := InputBox('Manutenção de Requisição ADM', 'Digite o número da requisição:', '');
+           vRequisicoes      := InputBox('Manutenção de Requisição ADM', 'Digite o número da requisição:', '');
+           vListaRequisicoes := vRequisicoes.split([';']);
 
-           if not vNumeroReq.Vazio then
+           for vNumeroReq in vListaRequisicoes do
            begin
-             if vNumeroReq <> vNumeroReq.SomenteNumeros then
-               TDtcForms.MessageDtc('Digite apenas números')
-             else
+             if not vNumeroReq.Vazio then
              begin
-
-               if ((PressionouShift) or (PressionouCtrl)) then
+               if vNumeroReq <> vNumeroReq.SomenteNumeros then
+                 TDtcForms.MessageDtc('Digite apenas números')
+               else
                begin
-                 vCaminhoArquivoReqs := Format('Q:\Arquivos para Requisicoes\%s', [vNumeroReq.ToString]);
-                 if DirectoryExists(AnsiString(vCaminhoArquivoReqs)) then
-                   ShellExecute(Handle, cOperacao, PWideChar(vCaminhoArquivoReqs), nil, 'Q:', SW_SHOWNORMAL);
+
+                 if ((PressionouShift) or (PressionouCtrl)) then
+                 begin
+                   vCaminhoArquivoReqs := Format('Q:\Arquivos para Requisicoes\%s', [vNumeroReq.ToString]);
+                   if DirectoryExists(AnsiString(vCaminhoArquivoReqs)) then
+                     ShellExecute(Handle, cOperacao, PWideChar(vCaminhoArquivoReqs), nil, 'Q:', SW_SHOWNORMAL);
+                 end;
+
+                 if not PressionouCtrl then
+                 begin
+                   vLinkReqAdm := Format('https://adm.datacempro.com.br/Requisicoes/Home/Compartilhado/%s', [vNumeroReq.ToString]);
+                   ShellExecute(Handle, cOperacao, PWideChar(vLinkReqAdm), nil, PWideChar(''), SW_SHOWNORMAL);
+                 end;
                end;
 
-               if not PressionouCtrl then
-               begin
-                 vLinkReqAdm := Format('https://adm.datacempro.com.br/Requisicoes/Home/Compartilhado/%s', [vNumeroReq.ToString]);
-                 ShellExecute(Handle, cOperacao, PWideChar(vLinkReqAdm), nil, PWideChar(''), SW_SHOWNORMAL);
-               end;
+               Self.Close;
              end;
-
-             Self.Close;
            end;
          end;
       end;
